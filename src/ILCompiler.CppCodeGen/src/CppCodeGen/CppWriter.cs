@@ -1230,7 +1230,8 @@ namespace ILCompiler.CppCodeGen
                 reloc.Target is GenericMethodsTemplateMap ||
                 reloc.Target is GenericTypesHashtableNode ||
                 reloc.Target is TypeMetadataMapNode ||
-                reloc.Target is FatFunctionPointerNode
+                reloc.Target is FatFunctionPointerNode ||
+                reloc.Target is DelegateMarshallingStubMapNode
                 ) && !(reloc.Target as ObjectNode).ShouldSkipEmittingObjectNode(factory))
             {
                 string mangledTargetName = GetCppSymbolNodeName(factory, reloc.Target);
@@ -1277,7 +1278,8 @@ namespace ILCompiler.CppCodeGen
                     symbolNode.Target is GenericTypesTemplateMap ||
                     symbolNode.Target is GenericMethodsTemplateMap ||
                     symbolNode.Target is GenericTypesHashtableNode ||
-                    symbolNode.Target is TypeMetadataMapNode
+                    symbolNode.Target is TypeMetadataMapNode ||
+                    symbolNode.Target is DelegateMarshallingStubMapNode
                     ) && !(symbolNode.Target as ObjectNode).ShouldSkipEmittingObjectNode(factory))
                 {
                     relocCode.Append("((char *)");
@@ -1461,7 +1463,8 @@ namespace ILCompiler.CppCodeGen
                     node is GenericMethodsTemplateMap ||
                     node is GenericTypesHashtableNode ||
                     node is TypeMetadataMapNode ||
-                    node is FatFunctionPointerNode
+                    node is FatFunctionPointerNode ||
+                    node is DelegateMarshallingStubMapNode
                     ) && !(node as ObjectNode).ShouldSkipEmittingObjectNode(factory))
                 {
                     if (node is IndirectionNode)

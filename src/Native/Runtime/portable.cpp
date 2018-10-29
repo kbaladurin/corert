@@ -380,51 +380,6 @@ COOP_PINVOKE_HELPER(void, RhpMemoryBarrier, ())
 #endif
 
 #if defined(USE_PORTABLE_HELPERS)
-EXTERN_C REDHAWK_API void* __cdecl RhAllocateThunksMapping()
-{
-    return NULL;
-}
-
-COOP_PINVOKE_HELPER(void *, RhpGetThunksBase, ())
-{
-    return NULL;
-}
-
-COOP_PINVOKE_HELPER(int, RhpGetNumThunkBlocksPerMapping, ())
-{
-    ASSERT_UNCONDITIONALLY("NYI");
-    return 0;
-}
-
-COOP_PINVOKE_HELPER(int, RhpGetNumThunksPerBlock, ())
-{
-    ASSERT_UNCONDITIONALLY("NYI");
-    return 0;
-}
-
-COOP_PINVOKE_HELPER(int, RhpGetThunkSize, ())
-{
-    ASSERT_UNCONDITIONALLY("NYI");
-    return 0;
-}
-
-COOP_PINVOKE_HELPER(void*, RhpGetThunkDataBlockAddress, (void* pThunkStubAddress))
-{
-    ASSERT_UNCONDITIONALLY("NYI");
-    return NULL;
-}
-
-COOP_PINVOKE_HELPER(void*, RhpGetThunkStubsBlockAddress, (void* pThunkDataAddress))
-{
-    ASSERT_UNCONDITIONALLY("NYI");
-    return NULL;
-}
-
-COOP_PINVOKE_HELPER(int, RhpGetThunkBlockSize, ())
-{
-    ASSERT_UNCONDITIONALLY("NYI");
-    return NULL;
-}
 
 COOP_PINVOKE_HELPER(void, RhCallDescrWorker, (void * callDescr))
 {
@@ -438,18 +393,6 @@ COOP_PINVOKE_HELPER(void, CallingConventionConverter_GetStubs, (UIntNative* pRet
 #endif
 {
     ASSERT_UNCONDITIONALLY("NYI");
-}
-
-COOP_PINVOKE_HELPER(void *, RhGetCommonStubAddress, ())
-{
-    ASSERT_UNCONDITIONALLY("NYI");
-    return NULL;
-}
-
-COOP_PINVOKE_HELPER(void *, RhGetCurrentThunkContext, ())
-{
-    ASSERT_UNCONDITIONALLY("NYI");
-    return NULL;
 }
 
 #endif
