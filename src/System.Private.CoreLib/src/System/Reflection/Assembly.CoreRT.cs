@@ -31,10 +31,45 @@ namespace System.Reflection
             return Load(name);
         }
 
-        public static Assembly LoadFile(string path) { throw new PlatformNotSupportedException(); }
-        public static Assembly LoadFrom(string assemblyFile) { throw new PlatformNotSupportedException(); }
-        public static Assembly LoadFrom(string assemblyFile, byte[] hashValue, AssemblyHashAlgorithm hashAlgorithm) { throw new PlatformNotSupportedException(); }
-
         public bool IsRuntimeImplemented() => this is IRuntimeImplemented; // Not an api but needs to be public because of Reflection.Core/CoreLib divide.
+        public static Assembly LoadFile(string path)
+        {
+            string name = "";
+            if (path == "/usr/apps/com.samsung.tv.coba.source/shared/res/CompSource.dll")
+            {
+                name = "CompSource";
+            }
+            else if (path == "/usr/apps/com.samsung.tv.coba.search/shared/res/CompSearch.dll")
+            {
+                name = "CompSearch";
+            }
+            else if (path == "/usr/apps/com.samsung.tv.coba.apps/shared/res/CompApps.dll")
+            {
+                name = "CompApps";
+            }
+            else if (path == "/usr/apps/com.samsung.tv.coba.notification/shared/res/CompNotification.dll")
+            {
+                name = "CompNotification";
+            }
+            else if (path == "/usr/apps/com.samsung.tv.coba.livetv/shared/res/CompLiveTV.dll")
+            {
+                name = "CompLiveTV";
+            }
+            else if (path == "/usr/apps/com.samsung.tv.coba.advertise/shared/res/CompAdvertise.dll")
+            {
+                name = "CompAdvertise";
+            }
+            else if (path == "/usr/apps/com.samsung.tv.coba.internet/shared/res/CompInternet.dll")
+            {
+                name = "CompInternet";
+            }
+            else
+            {
+                throw new PlatformNotSupportedException(path); 
+            }
+            return Load(new AssemblyName(name));
+        }
+        public static Assembly LoadFrom(string assemblyFile) { return LoadFile(assemblyFile); }
+        public static Assembly LoadFrom(string assemblyFile, byte[] hashValue, AssemblyHashAlgorithm hashAlgorithm) { throw new PlatformNotSupportedException(assemblyFile); }
     }
 }

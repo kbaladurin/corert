@@ -31,7 +31,7 @@ using libunwind::Registers_x86_64;
 #elif defined(_TARGET_ARM_)
 using libunwind::Registers_arm;
 #else
-#error "Unwinding is not implemented for this architecture yet."
+//#error "Unwinding is not implemented for this architecture yet."
 #endif
 using libunwind::LocalAddressSpace;
 using libunwind::EHHeaderParser;
@@ -439,9 +439,10 @@ bool DoTheStep(uintptr_t pc, UnwindInfoSections uwInfoSections, REGDISPLAY *regs
 #elif defined(_TARGET_ARM_)
     libunwind::UnwindCursor<LocalAddressSpace, Registers_arm_rt> uc(_addressSpace, regs);
 #else
-    #error "Unwinding is not implemented for this architecture yet."
+    return false;
+    //#error "Unwinding is not implemented for this architecture yet."
 #endif
-
+#if defined(_TARGET_ARM_) || defined(_TARGET_AMD64_)
 #if _LIBUNWIND_SUPPORT_DWARF_UNWIND
     bool retVal = uc.getInfoFromDwarfSection(pc, uwInfoSections, 0 /* fdeSectionOffsetHint */);
     if (!retVal)
@@ -471,6 +472,7 @@ bool DoTheStep(uintptr_t pc, UnwindInfoSections uwInfoSections, REGDISPLAY *regs
 #endif
 
     return true;
+#endif
 }
 
 UnwindInfoSections LocateUnwindSections(uintptr_t pc)
@@ -495,6 +497,8 @@ UnwindInfoSections LocateUnwindSections(uintptr_t pc)
     }
 #else // __APPLE__
 
+#if defined(_TARGET_ARM_) || defined(_TARGET_AMD64_)
+
 #if _LIBUNWIND_SUPPORT_DWARF_UNWIND
     dl_iterate_cb_data cb_data = {&uwInfoSections, pc };
     dl_iterate_phdr(LocateSectionsCallback, &cb_data);
@@ -502,6 +506,7 @@ UnwindInfoSections LocateUnwindSections(uintptr_t pc)
     PORTABILITY_ASSERT("LocateUnwindSections");
 #endif
 
+#endif
 #endif
 
     return uwInfoSections;

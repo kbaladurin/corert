@@ -32,7 +32,21 @@ namespace System.Runtime.Loader
 
         public Assembly LoadFromAssemblyPath(string assemblyPath)
         {
-            throw new PlatformNotSupportedException();
+            string name = "";
+            if (assemblyPath.Length > 5)
+            {
+                int lastSlash = assemblyPath.LastIndexOf('/');
+                if (lastSlash < 0)
+                {
+                    throw new PlatformNotSupportedException(assemblyPath);
+                }
+                name = assemblyPath.Substring(lastSlash + 1, assemblyPath.Length - lastSlash - 1 - 4);
+            }
+            else
+            {
+                throw new PlatformNotSupportedException(assemblyPath);
+            }
+            return ReflectionAugments.ReflectionCoreCallbacks.Load(new AssemblyName(name), false);
         }
 
         public void SetProfileOptimizationRoot(string directoryPath) { }
