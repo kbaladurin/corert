@@ -287,7 +287,7 @@ bool GetUnwindProcInfo(PCODE ip, unw_proc_info_t *procInfo)
 #elif _WASM_
     ASSERT(false);
 #else
-    #error "GetUnwindProcInfo is not supported on this arch yet."
+    //#error "GetUnwindProcInfo is not supported on this arch yet."
 #endif
 
     st = unw_init_local(&cursor, &unwContext);
@@ -326,7 +326,7 @@ bool InitializeUnwindContextAndCursor(REGDISPLAY* regDisplay, unw_cursor_t* curs
 #elif _ARM_
     ((uint32_t*)(unwContext->data))[15] = regDisplay->IP;
 #else
-    #error "InitializeUnwindContextAndCursor is not supported on this arch yet."
+//    #error "InitializeUnwindContextAndCursor is not supported on this arch yet."
 #endif
 
     st = unw_init_local(cursor, unwContext);
